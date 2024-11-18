@@ -1,27 +1,28 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms'; 
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
-
+import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
+import { provideHttpClient, withFetch } from '@angular/common/http';
+
 import { AppComponent } from './app.component';
-import { TestComponent } from './test/test.component';
-
-import { HttpClientModule } from '@angular/common/http';  
-
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TestComponent
+    LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [
-    provideClientHydration()
+    provideHttpClient(withFetch()),
+    provideClientHydration(),
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent], 
 })
 export class AppModule { }
