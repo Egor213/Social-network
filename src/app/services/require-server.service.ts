@@ -2,7 +2,7 @@ import { HttpClient, HttpParams  } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../interfaces';
 import { Observable } from 'rxjs';
-
+import {registerUser} from '../interfaces'
 @Injectable({
   providedIn: 'root'
 })
@@ -21,5 +21,11 @@ export class RequireServerService {
     return this.http.get<User>(this.apiUrl + "admin/user", { params });
   }
 
+  
+
+  addUser(user: registerUser) {
+    console.log(user)
+    return this.http.post(this.apiUrl + "admin/create_user", user);
+  }
 
 }

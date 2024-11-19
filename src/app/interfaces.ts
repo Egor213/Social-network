@@ -8,3 +8,10 @@ export interface User {
     img: string,
     password: string
 }
+
+export interface registerUser {
+    username: string;
+    email: string;
+    password: string;
+    date: string;
+  }

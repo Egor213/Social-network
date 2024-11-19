@@ -4,8 +4,10 @@ import { HttpClient } from '@angular/common/http';
 import { catchError, Observable, of, map } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { RequireServerService } from './require-server.service';
+import { registerUser } from '../interfaces';
+import { error } from 'console';
 
-interface User {
+interface inputUser {
   email: string;
   password: string;
 }
@@ -58,7 +60,7 @@ removeToken(): void {
     return token
   }
 
-  login(inputUser: User){
+  login(inputUser: inputUser){
     return this.requireServer.getUsers().pipe(
       map(users => {
         const user = users.find((obj: any) => obj.email === inputUser.email && obj.password === inputUser.password);
@@ -72,6 +74,17 @@ removeToken(): void {
     );
   }
 
+  register(inputUser: registerUser) {
+    return this.requireServer.addUser(inputUser).pipe(
+      map(users => {
+          this.setToken(inputUser.email + '-@-' + inputUser.password, 600); 
+          return true;
+      }),
+      catchError((error) => {
+        throw new Error('Failed email');
+      })
+    );
+  }
 
   logout() {
     if (confirm("Logout?")) {
