@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
 import { HttpClient } from '@angular/common/http';  
-import { catchError, Observable, of, throwError } from 'rxjs';
+import { catchError, Observable, of, map } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 interface User {
   email: string;
@@ -19,47 +19,62 @@ export class AuthService {
 
   constructor(
     private router: Router, 
-    private cookieService: CookieService, 
-    private http: HttpClient
+    private http: HttpClient,
+    private cookieService: CookieService
   ) {}
 
-  setToken(token: string): void {
-    this.cookieService.set('auth_token', token);
-  }
+  setToken(token: string, expiresIn: number): void {
+    const expirationDate = new Date().getTime() + expiresIn * 1000; 
+    const tokenData = {
+      token: token,
+      expiresAt: expirationDate
+    };
+    this.cookieService.set('auth_token', JSON.stringify(tokenData), expiresIn); 
+}
 
-  getToken(): string {
-    return this.cookieService.get('auth_token');
-  }
+getToken(): string | null {
+    const tokenData = JSON.parse(this.cookieService.get('auth_token') || 'null');
+    if (tokenData && tokenData.expiresAt > new Date().getTime()) {
+      return tokenData.token;
+    } else {
+      this.removeToken();
+      return null;
+    }
+}
 
-  removeToken(): void {
-    this.cookieService.delete('auth_token');
-  }
+removeToken(): void {
+  this.cookieService.delete('auth_token');
+}
+
 
   isLoggedIn(): boolean {
-    return this.getToken() != null;
+    return this.getToken() !== null;
   }
 
-  // Используем RxJS оператор для получения данных
   getUserData(): Observable<any> {
     return this.http.get<any>(this.apiUrl).pipe(
       catchError(error => {
         console.error('Ошибка при получении данных пользователя:', error);
-        return of([]); // Возвращаем пустой массив в случае ошибки
+        return of([]);
       })
     );
   }
 
-  login(inputUser: User): Observable<string | boolean> {
-    return new Observable(observer => {
-      this.getUserData().subscribe(users => {
+  // Логин с проверкой данных
+  login(inputUser: User): Observable<boolean> {
+    return this.getUserData().pipe(
+      map(users => {
         const user = users.find((obj: any) => obj.email === inputUser.email && obj.password === inputUser.password);
         if (user) {
-          this.setToken(user.email + '-' + user.password);
-          observer.next(true);
+          this.setToken(user.email + '-@-' + user.password, 600); 
+          return true;
         } else {
-          observer.error(new Error('Failed Login'));
+          throw new Error('Failed Login');
         }
-      });
-    });
+      }),
+      catchError(() => {
+        return of(false);
+      })
+    );
   }
 }
