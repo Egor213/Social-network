@@ -60,7 +60,7 @@ removeToken(): void {
     );
   }
 
-  // Логин с проверкой данных
+  
   login(inputUser: User): Observable<boolean> {
     return this.getUserData().pipe(
       map(users => {
@@ -71,10 +71,12 @@ removeToken(): void {
         } else {
           throw new Error('Failed Login');
         }
-      }),
-      catchError(() => {
-        return of(false);
       })
     );
+  }
+
+
+  logout() {
+    this.router.navigate(['login'])
   }
 }

@@ -29,13 +29,16 @@ export class LoginComponent implements OnInit {
         Validators.required
       ])
     });
+    if (this.authService.isLoggedIn()) {
+      this.router.navigate(['main'])
+    }
   }
 
   submitLogin(): void {
     this.authService.login(this.loginForm.value).subscribe({
       next: () => {
-        this.router.navigate(['news']);
         this.loginError = false;
+        this.router.navigate(['main']);
       },
       error: (err) => {
         this.loginError = true;  

@@ -7,8 +7,9 @@ import { MainDashboardComponent } from './components/main-dashboard/main-dashboa
 const routes: Routes = [
   {path:'', component: MainDashboardComponent, children: [
     {path:'news', component: NewsComponent},
-    {path: 'home', component: HomeComponent}
-  ]}
+    {path: 'home', component: HomeComponent},
+    {path: '', redirectTo: 'news', pathMatch: 'full'}
+  ]},
 ];
 
 @NgModule({
