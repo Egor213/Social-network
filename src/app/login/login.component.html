@@ -4,7 +4,7 @@
             <a class="nav-link active" aria-current="page" href="#">Login</a>
         </li>
         <li class="nav-item">
-            <button class="nav-link" (click)="navigateToRegister()">Register</button>
+            <a class="nav-link" routerLink="../register">Register</a>
         </li>
     </ul>
 </div>
@@ -13,16 +13,18 @@
         <div class="card m-2 card-custom-width" style="width: 25rem;">
             <div class="card-body">
                 <h2 class="card-title text-center">Login</h2>
-                <form>
+                <form [formGroup]="loginForm" (ngSubmit)="submitLogin()">
                     <div class="form-outline mb-4">
                         <label class="form-label" for="loginEmail">Email address</label>
-                        <input type="email" id="loginEmail" class="form-control" placeholder="Enter your email" required />
+                        <input formControlName="email" type="email" id="loginEmail" class="form-control" placeholder="Enter your email" required />
+                        <p *ngIf="this.loginForm.get('email')?.invalid && this.loginForm.get('email')?.touched"><small class="text-danger">Email is required</small></p>
                     </div>
                     <div class="form-outline mb-4">
                         <label class="form-label" for="loginPassword">Password</label>
-                        <input type="password" id="loginPassword" class="form-control" placeholder="Enter your password" required />
+                        <input formControlName="password" type="password" id="loginPassword" class="form-control" placeholder="Enter your password" required />
+                        <p *ngIf="this.loginForm.get('password')?.invalid && this.loginForm.get('password')?.touched"><small class="text-danger">Password is required</small></p>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-block w-100">Login</button>    
+                    <button [disabled]="loginForm.invalid" type="submit" class="btn btn-primary btn-block w-100">Login</button>    
                 </form>
             </div>
         </div>
