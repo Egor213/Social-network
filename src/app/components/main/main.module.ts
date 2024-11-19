@@ -7,6 +7,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
 import { NewsComponent } from './components/news/news.component';
 import { MainDashboardComponent } from './components/main-dashboard/main-dashboard.component';
+import { FriendsComponent } from './components/friends/friends.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { MainDashboardComponent } from './components/main-dashboard/main-dashboa
     HeaderComponent,
     HomeComponent,
     NewsComponent,
-    MainDashboardComponent
+    MainDashboardComponent,
+    FriendsComponent
   ],
   imports: [
     CommonModule,

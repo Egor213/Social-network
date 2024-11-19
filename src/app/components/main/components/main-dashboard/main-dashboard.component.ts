@@ -2,8 +2,11 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-main-dashboard',
-  templateUrl: './main-dashboard.component.html',
-  styleUrl: './main-dashboard.component.less'
+  template: `
+  <app-header></app-header>
+  <router-outlet></router-outlet>
+  <app-footer></app-footer>
+  `
 })
 export class MainDashboardComponent {
 

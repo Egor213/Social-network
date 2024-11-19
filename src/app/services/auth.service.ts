@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';  
 import { catchError, Observable, of, map } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
+import { RequireServerService } from './require-server.service';
 
 interface User {
   email: string;
@@ -20,6 +21,7 @@ export class AuthService {
   constructor(
     private router: Router, 
     private http: HttpClient,
+    private requireServer: RequireServerService,
     private cookieService: CookieService
   ) {}
 
@@ -51,18 +53,13 @@ removeToken(): void {
     return this.getToken() !== null;
   }
 
-  getUserData(): Observable<any> {
-    return this.http.get<any>(this.apiUrl).pipe(
-      catchError(error => {
-        console.error('Ошибка при получении данных пользователя:', error);
-        return of([]);
-      })
-    );
+  getTokenData(): string[] {
+    const token = (this.getToken() || ' ').split('-@-')
+    return token
   }
 
-  
-  login(inputUser: User): Observable<boolean> {
-    return this.getUserData().pipe(
+  login(inputUser: User){
+    return this.requireServer.getUsers().pipe(
       map(users => {
         const user = users.find((obj: any) => obj.email === inputUser.email && obj.password === inputUser.password);
         if (user) {
@@ -77,6 +74,10 @@ removeToken(): void {
 
 
   logout() {
-    this.router.navigate(['login'])
+    if (confirm("Logout?")) {
+      this.removeToken()
+      this.router.navigate(['login'])
+    }
+    
   }
 }
