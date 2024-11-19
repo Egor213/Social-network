@@ -6,18 +6,16 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
 import {ReactiveFormsModule} from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { NotFoundComponent } from './not-found/not-found.component';
-import { NewsComponent } from './news/news.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    NotFoundComponent,
-    NewsComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
