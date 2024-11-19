@@ -26,6 +26,9 @@
                     </div>
                     <button [disabled]="loginForm.invalid" type="submit" class="btn btn-primary btn-block w-100">Login</button>    
                 </form>
+                <div *ngIf="loginError" class="error-message">
+                    Неверный логин или пароль
+                  </div>
             </div>
         </div>
     </div>

@@ -11,6 +11,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
+  loginError: boolean = false;  
 
   constructor(
     private router: Router, 
@@ -32,8 +33,14 @@ export class LoginComponent implements OnInit {
 
   submitLogin(): void {
     this.authService.login(this.loginForm.value).subscribe({
-      next: () => this.router.navigate(['news']) ,
-      error: (err) => alert(err.message)
+      next: () => {
+        this.router.navigate(['news']);
+        this.loginError = false;
+      },
+      error: (err) => {
+        this.loginError = true;  
+        console.error(err.message);
+      }
     });
   }
 }
