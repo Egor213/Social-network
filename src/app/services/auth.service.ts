@@ -28,27 +28,28 @@ export class AuthService {
   ) {}
 
   setToken(token: string, expiresIn: number): void {
+    this.cookieService.set('auth_token', token, undefined, '/');
     const expirationDate = new Date().getTime() + expiresIn * 1000; 
     const tokenData = {
       token: token,
       expiresAt: expirationDate
     };
-    this.cookieService.set('auth_token', JSON.stringify(tokenData), expiresIn); 
+    this.cookieService.set('auth_token', JSON.stringify(tokenData), expiresIn, '/'); 
 }
 
-getToken(): string | null {
-    const tokenData = JSON.parse(this.cookieService.get('auth_token') || 'null');
-    if (tokenData && tokenData.expiresAt > new Date().getTime()) {
-      return tokenData.token;
-    } else {
-      this.removeToken();
-      return null;
-    }
-}
+  getToken(): string | null {
+      const tokenData = JSON.parse(this.cookieService.get('auth_token') || 'null');
+      if (tokenData && tokenData.expiresAt > new Date().getTime()) {
+        return tokenData.token;
+      } else {
+        this.removeToken();
+        return null;
+      }
+  }
 
-removeToken(): void {
-  this.cookieService.delete('auth_token');
-}
+  removeToken(): void {
+    this.cookieService.delete('auth_token', '/', 'localhost');
+  }
 
 
   isLoggedIn(): boolean {
