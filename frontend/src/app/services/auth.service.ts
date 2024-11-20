@@ -17,7 +17,6 @@ interface inputUser {
 })
 export class AuthService {
 
-  private apiUrl = 'http://localhost:3000/api/admin';
   userData: any;
 
   constructor(

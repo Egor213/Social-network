@@ -11,11 +11,13 @@ import { User } from '../../../../interfaces';
 })
 export class HeaderComponent implements OnInit{
 
+    private defaultImgPath: string = 'http://localhost:3000/st2/img/default.jpg'
+
     constructor(private authService: AuthService, private reqServ: RequireServerService) {}
 
     isAdmin: boolean = false;
     username!: string;
-    imgUrl!: string;
+    imgUrl!: string | null;
 
     ngOnInit(): void {
       const dataUser = this.authService.getTokenData()
@@ -25,16 +27,15 @@ export class HeaderComponent implements OnInit{
         })
       ).subscribe({
         next: (user) => {
-          this.username = user.name;
-          this.imgUrl = user.img;
-          if (user.role === 'Администратор') {
-            this.isAdmin = true
-          }
+          this.username = this.truncateString(user.name, 15)
+          this.setAdmin(user.role)
+          this.setUserPhoto(user.img);
         }
       });
-
-
+      
     }
+
+
 
     OnAdminSite() {
       window.location.href = 'http://localhost:3000/'
@@ -43,7 +44,37 @@ export class HeaderComponent implements OnInit{
     logout() {
       this.authService.logout();
     }
+
+
+    truncateString(str: string, length: number): string {
+      if (str.length > length) {
+        return str.substring(0, length) + '...';
+      }
+      return str;
+    }
+
+    setAdmin(role: string) {
+      if (role === 'Администратор') {
+        this.isAdmin = true
+      }
+    }
+
+    setUserPhoto(imgPath: string) {
+      if (imgPath) {
+        this.reqServ.getPhotoUser(imgPath).subscribe({
+          next: (response) => {
+            const url = URL.createObjectURL(response);
+            this.imgUrl = url;
+          },
+          error: () => this.imgUrl = this.defaultImgPath
+        })
+      } else {
+        this.imgUrl = this.defaultImgPath
+      }
+    }
 }
+
+ 
 
 
 // http://localhost:3000/st2/img/img3.jfif

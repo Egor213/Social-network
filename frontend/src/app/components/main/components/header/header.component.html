@@ -6,7 +6,12 @@
       >
         D
       </a>
-    
+      <div *ngIf="imgUrl">
+        <img [src]="imgUrl" alt="User Photo" width="32" height="32" class="user-photo">
+      </div>
+      <div class="username-title">
+        {{username}}
+      </div>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav ms-auto">
           <a
