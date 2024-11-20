@@ -4,6 +4,7 @@ export interface User {
     date: string,
     friends: number[],
     role: string,
+    status: string,
     email: string,
     img: string,
     password: string

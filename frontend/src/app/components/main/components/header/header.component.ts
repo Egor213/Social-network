@@ -4,6 +4,7 @@ import { AuthService } from '../../../../services/auth.service';
 import { RequireServerService } from '../../../../services/require-server.service';
 import { map } from 'rxjs';
 import { User } from '../../../../interfaces';
+import { DEFAULT_IMG_PATH } from '../constants';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -11,7 +12,7 @@ import { User } from '../../../../interfaces';
 })
 export class HeaderComponent implements OnInit{
 
-    private defaultImgPath: string = 'http://localhost:3000/st2/img/default.jpg'
+    private defaultImgPath: string = DEFAULT_IMG_PATH
 
     constructor(private authService: AuthService, private reqServ: RequireServerService) {}
 
@@ -32,7 +33,6 @@ export class HeaderComponent implements OnInit{
           this.setUserPhoto(user.img);
         }
       });
-      
     }
 
 
