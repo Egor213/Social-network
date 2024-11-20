@@ -14,20 +14,26 @@ export class HeaderComponent implements OnInit{
     constructor(private authService: AuthService, private reqServ: RequireServerService) {}
 
     isAdmin: boolean = false;
+    username!: string;
+    imgUrl!: string;
 
     ngOnInit(): void {
       const dataUser = this.authService.getTokenData()
       this.reqServ.getUserData(dataUser[0], dataUser[1]).pipe(
         map(obj => {
-          return obj.role === 'Администратор'; 
+          return obj; 
         })
       ).subscribe({
-        next: (isAdmin) => {
-          if (isAdmin) {
+        next: (user) => {
+          this.username = user.name;
+          this.imgUrl = user.img;
+          if (user.role === 'Администратор') {
             this.isAdmin = true
           }
         }
       });
+
+
     }
 
     OnAdminSite() {
@@ -38,3 +44,6 @@ export class HeaderComponent implements OnInit{
       this.authService.logout();
     }
 }
+
+
+// http://localhost:3000/st2/img/img3.jfif
