@@ -73,8 +73,3 @@ export class HeaderComponent implements OnInit{
       }
     }
 }
-
- 
-
-
-// http://localhost:3000/st2/img/img3.jfif

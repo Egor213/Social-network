@@ -11,11 +11,7 @@ import { User } from '../../../../interfaces';
 })
 export class HomeComponent {
   imgUrl!: string | null;
-  username!: string;
-  email!:string;
-  status!: string;
-  role!: string;
-  date!: string;
+  user!: User;
 
   private defaultImgPath: string = DEFAULT_IMG_PATH
 
@@ -25,20 +21,12 @@ export class HomeComponent {
     const dataUser = this.authService.getTokenData()
     this.reqServ.getUserData(dataUser[0], dataUser[1]).subscribe({
       next: (user) => {
-        this.setInfoUser(user);
+        this.user = user;
         this.setUserPhoto(user.img);
       }
     });
   }
 
-
-  setInfoUser(user: User) {
-    this.username = user.name;
-    this.date = user.date;
-    this.email = user.email;
-    this.role = user.role;
-    this.status = user.status;
-  }
 
   setUserPhoto(imgPath: string) {
     if (imgPath) {
