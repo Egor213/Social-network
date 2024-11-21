@@ -43,6 +43,13 @@ export class RequireServerService {
     return this.http.put(this.apiUrl + '/api/user/delete_friend/', null, { params });
   }
 
+  addFriendUser(email: string, id_delete: number) {
+    const params = new HttpParams()
+        .set('email', email)
+        .set('id', id_delete.toString());
+    return this.http.put(this.apiUrl + '/api/user/add_friend/', null, { params });
+  }
+
   getAllUsers() {
     return this.http.get<User[]>(this.apiUrl + '/api/admin/')
   }

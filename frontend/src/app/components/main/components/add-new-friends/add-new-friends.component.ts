@@ -19,7 +19,7 @@ export class AddNewFriendsComponent implements OnInit{
   ){}
 
   userList!: User[];
-  friendsList!: User[];
+  friendsList!: number[];
   showUsersList!: User[];
   defaultImgPath: string = DEFAULT_IMG_PATH;
   tokenData!: string[];
@@ -31,12 +31,19 @@ export class AddNewFriendsComponent implements OnInit{
   }
 
   getshowUsers() {
-    if (this.userList && this.friendsList) {
-      this.showUsersList = this.userList.filter(user => 
-        !this.friendsList.some(friend => {
-          return friend.id == user.id || this.tokenData[0] == user.email
-        })
-      );
+    this.showUsersList = this.userList.filter(user => 
+      !this.friendsList.some(friend => friend == user.id)
+    ).filter(user => user.email != this.tokenData[0])
+  }
+
+  addFriend(userId: number) {
+    if (confirm("Добавить друга?")) {
+      this.reqServ.addFriendUser(this.tokenData[0], userId).subscribe({
+        next: () => {
+          this.friendsList.push(userId);
+          this.getshowUsers(); 
+        }
+      })
     }
   }
 
@@ -49,7 +56,7 @@ export class AddNewFriendsComponent implements OnInit{
     }).subscribe({
       next: (data) => {
         this.userList = data.users;
-        this.friendsList = data.friends;
+        this.friendsList = Object.values(data.friends).map(user => user.id);
         this.getshowUsers(); 
       }
     });

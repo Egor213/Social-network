@@ -22,8 +22,8 @@
                             </div>
                         </div>
                         <div class="card-friend-btn">
-                            <button type="button" class="btn btn-success m-3 btn-rounded">Подробнее</button>
-                            <button type="button" class="btn btn-warning m-3 btn-rounded">Добавить</button>
+                            <button type="button" class="btn btn-success m-3 btn-rounded" routerLink="/main/user/{{user.id}}">Подробнее</button>
+                            <button type="button" class="btn btn-warning m-3 btn-rounded" (click)="addFriend(user.id)">Добавить</button>
                         </div>
                         
                     </div>
