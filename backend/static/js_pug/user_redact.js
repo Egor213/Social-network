@@ -45,7 +45,7 @@ function render_information() {
             <h5 id='email' class='break-word'> Email: ${response.email} </h5>
             <h5 id='role'> Role: ${response.role} </h5>
             <h5 id='status'> Status: ${response.status} </h5>
-        `
+        `   
         $('#info').append(user);
     });
     

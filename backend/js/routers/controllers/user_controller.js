@@ -20,6 +20,22 @@ class UserController {
             res.status(404).json({error: "Друзья не найдены"});
     }
 
+    getUserFriendsByEmailPaswd(req, res) {
+        const email = req.query.email; // Извлекаем email из query
+        const password = req.query.password; // Извлекаем password из query
+
+        if (!email || !password) {
+            return res.status(400).json({ message: 'Email и пароль обязательны' });
+        }
+        const user = db_users.getUserByEmailPassword(email, password);
+        const data = db_users.getJSONFriendsUser(user.id);
+   
+        if (data)
+            res.status(200).json(data);
+        else
+            res.status(404).json({error: "Друзья не найдены"});
+    }
+
     renderUserName(req, res) {
         const user_id = req.params.id;
         const data = db_users.getNameUser(user_id);
