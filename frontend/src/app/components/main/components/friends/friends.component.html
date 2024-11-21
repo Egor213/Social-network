@@ -1,1 +1,49 @@
-<p>friends works!</p>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="content">
+    <div class="container">
+        <div class="add-friend-btn">
+            <button class="btn btn-primary ml-auto">Add friends</button>
+        </div>
+        <!-- end row -->
+        <div class="row">
+            <div *ngFor="let user of friendsList" class="col-lg-3 col-md-4 col-sm-6">
+                <div class="text-center card-box">
+                    <div class="member-card pt-2 pb-2">
+                        <div class="thumb-lg member-thumb mx-auto">
+                            <img [src]="'http://localhost:3000' + user.img" class="rounded-circle img-thumbnail" alt="profile-image">
+                        </div>
+                        <div class="">
+                            <h4>{{user.name}}</h4>
+                        </div>
+                        <div class="card-friend-btn">
+                            <button type="button" class="btn btn-success m-3 btn-rounded">Подробнее</button>
+                            <button type="button" class="btn btn-warning m-3 btn-rounded">Удалить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row -->
+    </div>
+    <!-- container -->
+</div>
+
+
+
+<!-- Вариант карточки при поиске друга -->
+<!-- <div class="col-lg-4">
+    <div class="text-center card-box">
+        <div class="member-card pt-2 pb-2">
+            <div class="thumb-lg member-thumb mx-auto"><img src="https://bootdey.com/img/Content/avatar/avatar2.png" class="rounded-circle img-thumbnail" alt="profile-image"></div>
+            <div class="">
+                <h4>Freddie J. Plourde</h4>
+            </div>
+            <div class="card-friend-btn">
+                <button type="button" class="btn btn-primary m-3 btn-rounded">Подробнее</button>
+                <button type="button" class="btn btn-primary m-3 btn-rounded">Добавить в друзья</button>
+            </div>
+            
+
+        </div>
+    </div>
+</div> -->
