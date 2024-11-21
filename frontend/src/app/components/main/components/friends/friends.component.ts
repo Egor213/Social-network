@@ -13,6 +13,7 @@ export class FriendsComponent implements OnInit{
 
   friendsList!: User[];
   defaultImgPath: string = DEFAULT_IMG_PATH;
+  notFoundFriends: boolean = false;
 
   constructor(
     private reqServ: RequireServerService, 
@@ -27,8 +28,9 @@ export class FriendsComponent implements OnInit{
     const dataUser = this.authService.getTokenData()
     this.reqServ.getAllFriends(dataUser[0], dataUser[1]).subscribe({
       next: friends => {
-        console.log(friends)
         this.friendsList = friends;
+        if (this.friendsList.length == 0) 
+          this.notFoundFriends = true
       }
     })
   }
@@ -38,7 +40,16 @@ export class FriendsComponent implements OnInit{
   }
 
   deleteUser(userId: number) {
-
+    const dataUser = this.authService.getTokenData()
+    if (confirm("Удалить друга?")) {
+      this.reqServ.deleteFriendUser(dataUser[0], userId).subscribe({
+        next: () => {
+          this.friendsList = this.friendsList.filter(user => user.id !== userId);
+          if (this.friendsList.length == 0) 
+            this.notFoundFriends = true
+        }
+      })
+    }
   }
 
   setUserPhoto(imgPath: string): string {

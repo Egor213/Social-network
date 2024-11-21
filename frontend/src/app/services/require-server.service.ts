@@ -36,6 +36,14 @@ export class RequireServerService {
     return this.http.get(this.apiUrl + path, { responseType: 'blob' });
   }
 
+  deleteFriendUser(email: string, id_delete: number) {
+    const params = new HttpParams()
+        .set('email', email)
+        .set('id', id_delete.toString());
+    return this.http.put(this.apiUrl + '/api/user/delete_friend/', null, { params });
+  }
+
+
 
   getAllFriends(email: string, password: string){
     const params = new HttpParams()
