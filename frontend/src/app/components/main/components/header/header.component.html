@@ -6,9 +6,9 @@
       >
         D
       </a>
-      <div *ngIf="imgUrl">
-        <img [src]="imgUrl" alt="User Photo" width="32" height="32" class="user-photo rounded-circle">
-      </div>
+   
+        <img [src]="user.img ? 'http://localhost:3000' + user.img : defaultImgPath" *ngIf="user" alt="User Photo" width="32" height="32" class="user-photo rounded-circle">
+   
       <div class="username-title">
         {{username}}
       </div>

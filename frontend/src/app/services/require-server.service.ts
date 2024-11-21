@@ -54,6 +54,12 @@ export class RequireServerService {
     return this.http.get<User[]>(this.apiUrl + '/api/admin/')
   }
 
+  deleteUserImg(email: string) {
+    const params = new HttpParams()
+        .set('email', email)
+    return this.http.post(this.apiUrl + '/api/user/delete_img/', null, { params })
+  }
+
 
   getAllFriends(email: string, password: string){
     const params = new HttpParams()
