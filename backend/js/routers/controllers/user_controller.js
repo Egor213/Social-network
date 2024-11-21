@@ -62,6 +62,22 @@ class UserController {
             res.status(404).json({error: "Данные не были изменены!"});
     }
 
+    
+    deleteFriendUser(req, res) {
+        console.log(req.query)
+        const email = req.query.email; // Извлекаем email из query
+        const id_delete = req.query.id; // Извлекаем password из query
+
+        if (!email || !id_delete) {
+            return res.status(400).json({ message: 'Email и id_delete обязательны' });
+        }
+        const delFriend = db_users.deleteFriendUser(email, id_delete)
+        if (delFriend)
+            res.status(200).json({message: "Okey"});
+        else
+            res.status(404).json({error: "Данные не были изменены!"});
+    }
+
 
 }
 

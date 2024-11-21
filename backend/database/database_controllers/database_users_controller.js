@@ -139,7 +139,7 @@ class DatabaseUsersController {
                         console.log(value_obj[key])
                         if (key === 'date')
                             if (this.isValidDate(value_obj[key]))
-                                user[key] = value_obj[key]
+                                user[key] = this.convertDate(value_obj[key])
                             else
                                 return false;
                         else
@@ -170,6 +170,18 @@ class DatabaseUsersController {
         const newUser = { ...user, id: newId,  friends: [], role:'Пользователь', status:'Активный', img:null};
         data.push(newUser);
         return this.saveJsonData(data);
+    }
+
+
+    deleteFriendUser(email, id_delete) {
+        const data = this.getArrData()
+        for (let user of data) {
+            if (user.email == email) {
+                user.friends = user.friends.filter(item => item != id_delete);
+                return this.saveJsonData(data);
+            }
+        }
+        return false;
     }
     
 }
