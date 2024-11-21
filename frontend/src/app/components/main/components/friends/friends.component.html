@@ -16,8 +16,8 @@
                             <h4>{{user.name}}</h4>
                         </div>
                         <div class="card-friend-btn">
-                            <button type="button" class="btn btn-success m-3 btn-rounded">Подробнее</button>
-                            <button type="button" class="btn btn-warning m-3 btn-rounded">Удалить</button>
+                            <button type="button" class="btn btn-success m-3 btn-rounded" (click)="detailUser(user.id)">Подробнее</button>
+                            <button type="button" class="btn btn-warning m-3 btn-rounded" (click)="deleteUser(user.id)">Удалить</button>
                         </div>
                     </div>
                 </div>

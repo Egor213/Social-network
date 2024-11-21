@@ -8,6 +8,7 @@ import { HomeComponent } from './components/home/home.component';
 import { NewsComponent } from './components/news/news.component';
 import { MainDashboardComponent } from './components/main-dashboard/main-dashboard.component';
 import { FriendsComponent } from './components/friends/friends.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { FriendsComponent } from './components/friends/friends.component';
     HomeComponent,
     NewsComponent,
     MainDashboardComponent,
-    FriendsComponent
+    FriendsComponent,
+    UserProfileComponent
   ],
   imports: [
     CommonModule,

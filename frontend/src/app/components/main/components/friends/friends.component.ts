@@ -26,9 +26,13 @@ export class FriendsComponent implements OnInit{
       }
     })
   }
+  
+  detailUser(userId: number) {
+   
+  }
 
-  setImage(imgPath: string) {
-    console.log(imgPath)
+  deleteUser(userId: number) {
+
   }
 
   setUserPhoto(imgPath: string): string {
