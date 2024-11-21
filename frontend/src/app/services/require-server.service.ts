@@ -43,6 +43,9 @@ export class RequireServerService {
     return this.http.put(this.apiUrl + '/api/user/delete_friend/', null, { params });
   }
 
+  getAllUsers() {
+    return this.http.get<User[]>(this.apiUrl + '/api/admin/')
+  }
 
 
   getAllFriends(email: string, password: string){

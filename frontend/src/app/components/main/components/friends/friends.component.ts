@@ -35,10 +35,6 @@ export class FriendsComponent implements OnInit{
     })
   }
   
-  detailUser(userId: number) {
-    this.router.navigate(['/main/user/' + userId])
-  }
-
   deleteUser(userId: number) {
     const dataUser = this.authService.getTokenData()
     if (confirm("Удалить друга?")) {
