@@ -7,7 +7,15 @@
       "friends": [
         2,
         4,
-        6
+        6,
+        3,
+        9,
+        10,
+        13,
+        12,
+        15,
+        8,
+        14
       ],
       "role": "Администратор",
       "status": "Активный",
@@ -128,6 +136,72 @@
       "id": 9,
       "friends": [],
       "role": "Администратор",
+      "status": "Активный",
+      "img": null
+    },
+    {
+      "name": "Test1",
+      "email": "test@test1",
+      "password": "root",
+      "date": "10.10.2000",
+      "id": 10,
+      "friends": [],
+      "role": "Пользователь",
+      "status": "Активный",
+      "img": null
+    },
+    {
+      "name": "Test2",
+      "email": "test@test2",
+      "password": "root",
+      "date": "10.10.2000",
+      "id": 11,
+      "friends": [],
+      "role": "Пользователь",
+      "status": "Активный",
+      "img": null
+    },
+    {
+      "name": "Test3",
+      "email": "test@test3",
+      "password": "root",
+      "date": "10.10.2000",
+      "id": 12,
+      "friends": [],
+      "role": "Пользователь",
+      "status": "Активный",
+      "img": null
+    },
+    {
+      "name": "Test4",
+      "email": "test@test4",
+      "password": "root",
+      "date": "10.10.2000",
+      "id": 13,
+      "friends": [],
+      "role": "Пользователь",
+      "status": "Активный",
+      "img": null
+    },
+    {
+      "name": "Test5",
+      "email": "test@test5",
+      "password": "root",
+      "date": "10.10.2000",
+      "id": 14,
+      "friends": [],
+      "role": "Пользователь",
+      "status": "Активный",
+      "img": null
+    },
+    {
+      "name": "Test6",
+      "email": "test@test6",
+      "password": "root",
+      "date": "10.10.2000",
+      "id": 15,
+      "friends": [],
+      "role": "Пользователь",
       "status": "Активный",
       "img": null
     }

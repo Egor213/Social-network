@@ -90,6 +90,18 @@ class UserController {
             res.status(404).json({error: "Данные не были изменены!"});
     }
 
+    deleteImgUser(req, res) {
+        const email = req.query.email;
+        if (!email) {
+            return res.status(400).json({ message: 'Email обязателен' });
+        }
+        const delImg = db_users.deleteImgUser(email)
+        if (delImg)
+            res.status(200).json({message: "Okey"});
+        else
+            res.status(404).json({error: "Не удалось удалить фотографию!"});
+    }
+
 
 }
 

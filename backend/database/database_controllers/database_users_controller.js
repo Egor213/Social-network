@@ -187,6 +187,28 @@ class DatabaseUsersController {
         return false;
     }
 
+    hasImg(path_img) {
+        return fs.existsSync(path_img); // Возвращает true, если файл существует, иначе false
+      }
+
+    deleteImgUser(email) {
+        const data = this.getArrData();
+        for (let user of data) {
+            if (user.email == email) {
+                const path_img = path.join(__dirname,'..','..', user.img.replace('st2', 'static'))
+                if (!this.hasImg(path_img)) {
+                    return false; 
+                }
+                try {
+                    fs.unlinkSync(path_img);
+                    user.img = null
+                    return true; 
+                } catch (err) {
+                    return false;
+                }
+            }
+        }
+    }
     
 
 

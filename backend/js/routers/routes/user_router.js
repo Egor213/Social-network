@@ -11,5 +11,6 @@ router.get('/get_name/:id', user_controller.renderUserName);
 router.put('/delete_friend/', user_controller.deleteFriendUser);
 router.put('/add_friend/', user_controller.addFriendUser);
 router.put('/change_params/', user_controller.changeParams);
+router.post('/delete_img/', user_controller.deleteImgUser);
 
 module.exports = router;
