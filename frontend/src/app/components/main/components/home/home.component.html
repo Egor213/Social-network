@@ -28,7 +28,7 @@
                 <button class="btn btn-warning" (click)="deleteImgUser(user.email)">Удалить фотографию</button>
               </div>
               <!-- Форма загрузки -->
-              <form enctype="multipart/form-data" *ngIf="isLoad" class="upload-form">
+              <form  enctype="multipart/form-data" *ngIf="isLoad" class="upload-form">
                 <div class="form-group d-flex justify-content-center">
                   <label for="fileInput" class="btn btn-primary btn-block btn-size">
                     Выберите файл
@@ -44,7 +44,7 @@
                 </div>
               
                 <div class="d-flex justify-content-center">
-                  <button type="submit" class="btn btn-success btn-block mt-3 btn-size">Загрузить</button>
+                  <button type="submit" class="btn btn-success btn-block mt-3 btn-size" (click)="loadAvatarImg($event)">Загрузить</button>
                 </div>
               </form>
               
