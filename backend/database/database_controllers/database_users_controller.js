@@ -172,6 +172,23 @@ class DatabaseUsersController {
         return this.saveJsonData(data);
     }
 
+    addFriendUser(email, id) {
+        id = parseInt(id)
+        const data = this.getArrData()
+        for (let user of data) {
+            if (user.email == email) {
+                const has_user = this.getUserById(id)
+                if (!has_user || user.friends.includes(id))
+                    return false
+                user.friends.push(id)
+                return this.saveJsonData(data);
+            }
+        }
+        return false;
+    }
+
+    
+
 
     deleteFriendUser(email, id_delete) {
         const data = this.getArrData()
