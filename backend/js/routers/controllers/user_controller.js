@@ -1,5 +1,27 @@
 const path = require('path');
 const db_users = require(path.join(__dirname, '..', '..', '..', 'database', 'database_controllers', 'database_users_controller'));
+const multer = require('multer');
+const { dir } = require('console');
+const fs = require('fs');
+
+
+function getMaxImageNumber(directory) {
+    const files = fs.readdirSync(directory);
+    let maxNumber = 0;
+
+    files.forEach((file) => {
+        const match = file.match(/^img(\d+)\.\w+$/);
+        if (match) {
+            console.log('A')
+            const number = parseInt(match[1], 10);
+            if (number > maxNumber) {
+                maxNumber = number;
+            }
+        }
+    });
+    
+    return maxNumber;
+}
 class UserController {
     renderUserNews(req, res) {
         const user_id = req.params.id;
@@ -102,7 +124,29 @@ class UserController {
             res.status(404).json({error: "Не удалось удалить фотографию!"});
     }
 
+    
 
+    
+
+
+      storage = multer.diskStorage({
+        destination: (req, file, cb) => {
+          cb(null, 'static/img'); 
+        },
+        filename: (req, file, cb) => {
+            const extension = file.originalname.split('.').pop(); 
+            const maxImageNumber = getMaxImageNumber('static/img');
+            cb(null, `img${maxImageNumber + 1}.${extension}`); 
+        },
+      });
+    upload = multer({ storage: this.storage });
+
+    uploadImg(req, res) {
+        const filePath = "../img_book/" +  req.file.filename;
+        res.send(filePath);
+    } 
+      
+    
 }
 
 module.exports = new UserController();

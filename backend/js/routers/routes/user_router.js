@@ -13,4 +13,10 @@ router.put('/add_friend/', user_controller.addFriendUser);
 router.put('/change_params/', user_controller.changeParams);
 router.post('/delete_img/', user_controller.deleteImgUser);
 
+
+
+
+
+router.post('/upload_img', user_controller.upload.single('file'), user_controller.uploadImg)
+
 module.exports = router;

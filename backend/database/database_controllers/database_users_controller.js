@@ -202,7 +202,7 @@ class DatabaseUsersController {
                 try {
                     fs.unlinkSync(path_img);
                     user.img = null
-                    return true; 
+                    return this.saveJsonData(data); 
                 } catch (err) {
                     return false;
                 }

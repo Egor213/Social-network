@@ -25,9 +25,9 @@ const router = require(path.join(__dirname, "js", "routers", "index.js"));
 const body_parser = require("body-parser");
 
 const user_checker = require(path.join(__dirname, "js", 'middleware', 'user_checker.js'))
-
+const static_dir = path.join(__dirname, 'static')
 server.use('/', express.static(path.join(__dirname, OUTDIR, 'client')))
-server.use('/st2', express.static(path.join(__dirname, 'static')));
+server.use('/st2', express.static(static_dir));
 server.use(express.json());
 server.use(body_parser.urlencoded({ extended: true }));
 
@@ -63,6 +63,7 @@ server.get("/user/redact/:id", user_checker, (req, res) => {
 server.get("*", (req, res) => {
     res.end("No such request!")
 });
+
 
 const SERVER = createServer(https_options, server);
 
