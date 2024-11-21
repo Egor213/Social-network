@@ -11,6 +11,7 @@ import { DEFAULT_IMG_PATH } from '../constants';
 export class FriendsComponent implements OnInit{
 
   friendsList!: User[];
+  defaultImgPath: string = DEFAULT_IMG_PATH;
 
   constructor(private reqServ: RequireServerService, private authService: AuthService) {}
 

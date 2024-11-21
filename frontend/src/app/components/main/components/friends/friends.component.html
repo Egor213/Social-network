@@ -10,7 +10,7 @@
                 <div class="text-center card-box">
                     <div class="member-card pt-2 pb-2">
                         <div class="thumb-lg member-thumb mx-auto">
-                            <img [src]="'http://localhost:3000' + user.img" class="rounded-circle img-thumbnail" alt="profile-image">
+                            <img [src]="user.img ? 'http://localhost:3000' + user.img : defaultImgPath" class="rounded-circle img-thumbnail" alt="profile-image">
                         </div>
                         <div class="">
                             <h4>{{user.name}}</h4>
