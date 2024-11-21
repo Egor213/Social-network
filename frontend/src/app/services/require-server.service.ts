@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { User } from '../interfaces';
 import { Observable } from 'rxjs';
 import {registerUser} from '../interfaces'
+import { map } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -29,5 +30,12 @@ export class RequireServerService {
 
   getPhotoUser(path: string) {
     return this.http.get(this.apiUrl + path, { responseType: 'blob' });
+  }
+
+  getAllFriends(email: string, password: string){
+    const params = new HttpParams()
+      .set('email', email)
+      .set('password', password);
+    return this.http.get<User[]>(this.apiUrl + "/api/user/friends", { params });
   }
 }
