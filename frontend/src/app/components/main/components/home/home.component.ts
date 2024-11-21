@@ -13,6 +13,8 @@ import { UserService } from '../../../../services/user.service';
 export class HomeComponent {
   imgUrl!: string | null;
   user!: User;
+  isLoad: boolean = false
+  fileName: string = ''; 
 
   defaultImgPath: string = DEFAULT_IMG_PATH
 
@@ -36,6 +38,25 @@ export class HomeComponent {
         }
       })
     }
+    }
+
+    changeLoadImg() {
+      this.isLoad = !this.isLoad
+    }
+    
+    onFileChange(event: any) {
+      const file = event.target.files[0];
+      if (file) {
+        this.fileName = file.name; 
+      }
+    }
+
+    clearFile() {
+      this.fileName = '';
+      const fileInput = <HTMLInputElement>document.getElementById('fileInput');
+      if (fileInput) {
+        fileInput.value = '';
+      }
     }
     
 }
