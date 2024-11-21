@@ -15,15 +15,19 @@ export class RequireServerService {
     return this.http.get<User[]>(this.apiUrl + '/api/admin');
   }
 
-  getUserData(email: string, password: string): Observable<User> {
-    const params = new HttpParams()
-      .set('email', email)
-      .set('password', password);
-    return this.http.get<User>(this.apiUrl + "/api/admin/user", { params });
+  getUserData(email: string, password: string): Observable<User>;
+  getUserData(userId: string): Observable<User>;
+  getUserData(param1: string, param2?: string): Observable<User> {
+    if (param2) {
+      const params = new HttpParams()
+        .set('email', param1)
+        .set('password', param2);
+      return this.http.get<User>(this.apiUrl + "/api/admin/user", { params });
+    } else {
+      console.log(this.apiUrl + "/api/admin/get_info_user/" + param1)
+      return this.http.get<User>(this.apiUrl + "/api/user/get_info_user/" + param1);
+    }
   }
-
-  
-
   addUser(user: registerUser) {
     return this.http.post(this.apiUrl + "/api/admin/create_user", user);
   }
@@ -31,6 +35,7 @@ export class RequireServerService {
   getPhotoUser(path: string) {
     return this.http.get(this.apiUrl + path, { responseType: 'blob' });
   }
+
 
   getAllFriends(email: string, password: string){
     const params = new HttpParams()

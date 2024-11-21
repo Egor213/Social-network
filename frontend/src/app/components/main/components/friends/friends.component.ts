@@ -3,6 +3,7 @@ import { RequireServerService } from '../../../../services/require-server.servic
 import { AuthService } from '../../../../services/auth.service';
 import { User } from '../../../../interfaces';
 import { DEFAULT_IMG_PATH } from '../constants';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-friends',
   templateUrl: './friends.component.html',
@@ -13,7 +14,12 @@ export class FriendsComponent implements OnInit{
   friendsList!: User[];
   defaultImgPath: string = DEFAULT_IMG_PATH;
 
-  constructor(private reqServ: RequireServerService, private authService: AuthService) {}
+  constructor(
+    private reqServ: RequireServerService, 
+    private authService: AuthService,
+    private router: Router
+  ) {}
+
 
   
 
@@ -28,7 +34,7 @@ export class FriendsComponent implements OnInit{
   }
   
   detailUser(userId: number) {
-   
+    this.router.navigate(['/main/user/' + userId])
   }
 
   deleteUser(userId: number) {
