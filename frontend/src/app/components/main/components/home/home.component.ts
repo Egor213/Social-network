@@ -4,6 +4,7 @@ import { AuthService } from '../../../../services/auth.service';
 import { map } from 'rxjs';
 import { DEFAULT_IMG_PATH } from '../constants';
 import { User } from '../../../../interfaces';
+import { UserService } from '../../../../services/user.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -15,7 +16,7 @@ export class HomeComponent {
 
   defaultImgPath: string = DEFAULT_IMG_PATH
 
-  constructor(private reqServ: RequireServerService, private authService: AuthService) {}
+  constructor(private reqServ: RequireServerService, private authService: AuthService, private userServ: UserService) {}
 
   ngOnInit(): void {
     const dataUser = this.authService.getTokenData()
@@ -27,25 +28,14 @@ export class HomeComponent {
   }
 
   deleteImgUser(email: string) {
-    this.reqServ.deleteUserImg(email).subscribe({
-      next: res => {
-        this.user.img = ''
-      }
-    })
-  }
-
-
-  // setUserPhoto(imgPath: string) {
-  //   if (imgPath) {
-  //     this.reqServ.getPhotoUser(imgPath).subscribe({
-  //       next: (response) => {
-  //         const url = URL.createObjectURL(response);
-  //         this.imgUrl = url;
-  //       },
-  //       error: () => this.imgUrl = this.defaultImgPath
-  //     })
-  //   } else {
-  //     this.imgUrl = this.defaultImgPath
-  //   }
-  // }
+    if(confirm("Удалить фотографию?")) {
+        this.reqServ.deleteUserImg(email).subscribe({
+        next: res => {
+          this.user.img = ''
+          this.userServ.clearUserPhoto();
+        }
+      })
+    }
+    }
+    
 }

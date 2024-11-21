@@ -5,6 +5,7 @@ import { RequireServerService } from '../../../../services/require-server.servic
 import { map } from 'rxjs';
 import { User } from '../../../../interfaces';
 import { DEFAULT_IMG_PATH } from '../constants';
+import { UserService } from '../../../../services/user.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -14,7 +15,7 @@ export class HeaderComponent implements OnInit{
 
     defaultImgPath: string = DEFAULT_IMG_PATH
 
-    constructor(private authService: AuthService, private reqServ: RequireServerService) {}
+    constructor(private authService: AuthService, private reqServ: RequireServerService, private userServ: UserService) {}
 
     
     isAdmin: boolean = false;
@@ -22,6 +23,9 @@ export class HeaderComponent implements OnInit{
     user!: User;
 
     ngOnInit(): void {
+      this.userServ.user$.subscribe(user => {
+        this.user = user;
+      });
       const dataUser = this.authService.getTokenData()
       this.reqServ.getUserData(dataUser[0], dataUser[1]).subscribe({
         next: (user) => {
