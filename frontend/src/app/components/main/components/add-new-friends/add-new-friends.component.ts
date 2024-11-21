@@ -13,6 +13,8 @@ import { DEFAULT_IMG_PATH } from '../constants';
 export class AddNewFriendsComponent implements OnInit{
 
   userList!: User[];
+  friendsList!: User[];
+  showUsersList!: User[];
   defaultImgPath: string = DEFAULT_IMG_PATH;
 
   constructor(
@@ -22,9 +24,29 @@ export class AddNewFriendsComponent implements OnInit{
   ){}
 
   ngOnInit(): void {
+    this.getAllUsers()
+    this.getFriends()
+    this.getshowUsers()
+    
+  }
+
+  getshowUsers() {
+    this.showUsersList = this.userList.filter(user => 
+      !this.friendsList.some(friend => friend.id === user.id)
+    );
+  }
+
+
+  getAllUsers() {
     this.reqServ.getAllUsers().subscribe({
       next: users => this.userList = users
     })
   }
 
+  getFriends() {
+    const dataUser = this.authServ.getTokenData()
+    this.reqServ.getAllFriends(dataUser[0], dataUser[1]).subscribe({
+      next: friends => this.friendsList = friends
+    })
+  }
 }

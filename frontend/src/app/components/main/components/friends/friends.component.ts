@@ -3,7 +3,6 @@ import { RequireServerService } from '../../../../services/require-server.servic
 import { AuthService } from '../../../../services/auth.service';
 import { User } from '../../../../interfaces';
 import { DEFAULT_IMG_PATH } from '../constants';
-import { Router } from '@angular/router';
 @Component({
   selector: 'app-friends',
   templateUrl: './friends.component.html',
@@ -18,21 +17,13 @@ export class FriendsComponent implements OnInit{
   constructor(
     private reqServ: RequireServerService, 
     private authService: AuthService,
-    private router: Router
   ) {}
 
 
   
 
   ngOnInit(): void {
-    const dataUser = this.authService.getTokenData()
-    this.reqServ.getAllFriends(dataUser[0], dataUser[1]).subscribe({
-      next: friends => {
-        this.friendsList = friends;
-        if (this.friendsList.length == 0) 
-          this.notFoundFriends = true
-      }
-    })
+    this.loadFriends()
   }
   
   deleteUser(userId: number) {
@@ -46,6 +37,17 @@ export class FriendsComponent implements OnInit{
         }
       })
     }
+  }
+
+  loadFriends() {
+    const dataUser = this.authService.getTokenData()
+    this.reqServ.getAllFriends(dataUser[0], dataUser[1]).subscribe({
+      next: friends => {
+        this.friendsList = friends;
+        if (this.friendsList.length == 0) 
+          this.notFoundFriends = true
+      }
+    })
   }
 
   setUserPhoto(imgPath: string): string {
