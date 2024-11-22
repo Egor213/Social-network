@@ -59,7 +59,7 @@ class UserController {
 
     renderUserName(req, res) {
         const user_id = req.params.id;
-        const data = db_users.getNameUser(user_id);
+        const data = db_users.getUserById(user_id).name;
         if (data)
             res.status(200).json(data);
         else

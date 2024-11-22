@@ -43,18 +43,7 @@ function add_all_news(all_news) {
   try {
     for (_iterator.s(); !(_step = _iterator.n()).done;) {
       var news = _step.value;
-      var _iterator2 = _createForOfIteratorHelper(news.posts),
-        _step2;
-      try {
-        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-          var element = _step2.value;
-          add_news_user(news.name, element, news.img);
-        }
-      } catch (err) {
-        _iterator2.e(err);
-      } finally {
-        _iterator2.f();
-      }
+      add_news_user(news.name, news.post, news.img);
     }
   } catch (err) {
     _iterator.e(err);

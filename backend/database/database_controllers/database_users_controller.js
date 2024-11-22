@@ -55,12 +55,6 @@ class DatabaseUsersController {
         return false;
     }
 
-    getNameUser(id) {
-        const user = this.getUserById(id);
-        if (user)
-            return user.name;
-        return false;
-    }
 
     getJSONFriendsUser(id) {
         const data = this.getArrData();
@@ -76,26 +70,24 @@ class DatabaseUsersController {
         return dest_json;
     }
 
-    getImgUser(id) {
-        const user = this.getUserById(id);
-        if (user)
-            return user.img;
-        return false;
-    }
 
     getNewsFriends(id, email = '') {
         if (email)
             id = this.getUserByEmail(email).id
         const friends = this.getIdFriendsUser(id);
         const temp_json = [];
-        for (let index in friends) {
-            const data = db_news.getNewsById(friends[index]);
-            if (data) {
-                data.name = this.getNameUser(friends[index]);
-                data.img = this.getImgUser(friends[index]);
-                temp_json.push(data); 
+        friends.push(parseInt(id))
+        const all_news = db_news.getAllNews()
+        for (let news of all_news) {
+            if (friends.includes(news.id)) {
+                let user = this.getUserById(news.id)
+                news.name = user.name
+                news.img = user.img
+                news.email = user.email
+                temp_json.push(news)
             }
         }
+        temp_json.reverse()
         return temp_json;
     }
 

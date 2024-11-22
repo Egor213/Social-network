@@ -53,9 +53,7 @@ function render_news_user() {
 
 function add_all_news(all_news) {
     for (let news of all_news) {
-        for (let element of news.posts) {
-            add_news_user(news.name, element, news.img);
-        }
+        add_news_user(news.name, news.post, news.img);
     }
 }
 
