@@ -15,6 +15,7 @@ export class HomeComponent {
   isLoad: boolean = false
   file: File | null = null; 
   fileName: string = ''
+  previewUrl: string | ArrayBuffer | null = null;
 
   defaultImgPath: string = DEFAULT_IMG_PATH
 
@@ -42,6 +43,7 @@ export class HomeComponent {
             this.user.img = result.path_img
             this.userServ.loadUserPhoto(result.path_img);
             this.changeLoadImg()
+            this.clearFile()
           }
           else {
             console.log('ошибка установки фотографии!', result)
@@ -59,7 +61,7 @@ export class HomeComponent {
     }
     if(confirm("Удалить старую фотографию?")) {
         this.reqServ.deleteUserImg(this.user.email).subscribe({
-        next: res => {
+        next: () => {
           this.user.img = ''
           this.userServ.clearUserPhoto();
         },
@@ -80,12 +82,19 @@ export class HomeComponent {
       if (file) {
         this.fileName = file.name;
         this.file = file 
+
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.previewUrl = reader.result
+        }
+        reader.readAsDataURL(file);
       }
     }
 
     clearFile() {
       this.fileName = '';
       this.file = null;
+      this.previewUrl = null
     }
     
     
