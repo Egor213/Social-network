@@ -16,3 +16,12 @@ export interface registerUser {
     password: string;
     date: string;
   }
+
+export interface PostUser {
+    id: number,
+    post: string,
+    name: string,
+    img: string,
+    email: string,
+    photo?: string
+}
