@@ -18,6 +18,33 @@ class DatabaseNewsController {
         }
     }
 
+    saveJsonData(json_data) {
+        try {
+            const data = {
+                news: json_data
+            }
+            fs.writeFileSync(this.path, JSON.stringify(data, null, 2), 'utf8');
+            return true;
+        } catch (err) {
+            console.error('Ошибка при сохранении данных:', err);
+            return false;
+        }
+    }
+
+
+    addNews(id, post, img = null) {
+        const data = this.getArrData();
+        const newsItem = {
+            id: id,
+            post: post
+        };
+        if (img !== null) {
+            newsItem.photo = img;
+        }
+        data.push(newsItem);
+        return this.saveJsonData(data);
+    }
+    
 
     getAllNews() {
         return this.getArrData();

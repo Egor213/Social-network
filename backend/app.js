@@ -83,6 +83,7 @@ const io = socket_oi(httpServer, {
   })
 
 const db_users = require('./database/database_controllers/database_users_controller')
+const db_news = require('./database/database_controllers/database_news_controller')
 io.on("connection", (socket) => {
     console.log('A user connected');
     
@@ -92,6 +93,14 @@ io.on("connection", (socket) => {
        const news = db_users.getNewsFriends(null, user_emai)
        socket.emit('news', news);
     });
+
+    socket.on('send_news', (data) => {
+        db_news.addNews(data.id, data.post, data.photo)
+        const user_emai = data.email
+        console.log(`Fetching news for user ${user_emai}`);
+        const news = db_users.getNewsFriends(null, user_emai)
+        io.emit('news', news);
+    })
 
     socket.on('disconnect', () => {
         console.log('User disconnected');

@@ -162,8 +162,7 @@ class UserController {
             res.status(404).json({error: "Не удалось установить фотографию!"});
         }
             
-    } 
-      
+    }  
     
 }
 
