@@ -222,6 +222,20 @@ class DatabaseUsersController {
         }
         return false;
     }
+
+    setImgUser(email, img_path) {
+        console.log(email)
+        console.log(img_path)
+        const data = this.getArrData()
+        for (let user of data) {
+            if (user.email == email) {
+                user.img = img_path
+                this.saveJsonData(data)
+                return img_path
+            }
+        }
+        return false;
+    }
     
 }
 module.exports = new DatabaseUsersController(path.join(__dirname, '..', 'database_json', 'users.json'));

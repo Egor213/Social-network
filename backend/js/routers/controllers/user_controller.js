@@ -12,7 +12,6 @@ function getMaxImageNumber(directory) {
     files.forEach((file) => {
         const match = file.match(/^img(\d+)\.\w+$/);
         if (match) {
-            console.log('A')
             const number = parseInt(match[1], 10);
             if (number > maxNumber) {
                 maxNumber = number;
@@ -127,23 +126,42 @@ class UserController {
     
 
     
-
+    getNewNameFile(file_name) {
+        const extension = file_name.split('.').pop();
+        return `img${getMaxImageNumber('static/img') + 1}.${extension}`
+    }
 
       storage = multer.diskStorage({
         destination: (req, file, cb) => {
           cb(null, 'static/img'); 
         },
         filename: (req, file, cb) => {
-            const extension = file.originalname.split('.').pop(); 
-            const maxImageNumber = getMaxImageNumber('static/img');
-            cb(null, `img${maxImageNumber + 1}.${extension}`); 
+            const file_name = file.originalname 
+            cb(null, this.getNewNameFile(file_name)); 
         },
       });
     upload = multer({ storage: this.storage });
 
     uploadImg(req, res) {
-        const filePath = "../img_book/" +  req.file.filename;
-        res.send(filePath);
+        const email = req.query.email;
+        const file_name = req.file.filename;
+        if (!email || !req.file) {
+            return res.status(400).json({ message: 'Email и file обязательны' });
+        }
+        const file_path = "/st2/img/" +  file_name;
+        const result = db_users.setImgUser(email, file_path)
+        if (result)
+            res.status(200).json({path_img: result});
+        else {
+            const path_img = path.join(__dirname,'..','..','..', 'static/img/', file_name)
+            if (fs.existsSync(path_img)) {
+                try {
+                    fs.unlinkSync(path_img);
+                } catch (err) {}
+            }
+            res.status(404).json({error: "Не удалось установить фотографию!"});
+        }
+            
     } 
       
     
