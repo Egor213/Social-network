@@ -72,8 +72,11 @@ class DatabaseUsersController {
 
 
     getNewsFriends(id, email = '') {
-        if (email)
-            id = this.getUserByEmail(email).id
+        if (email) {
+            const user = this.getUserByEmail(email)
+            if (user)
+                id = user.id
+        }
         const friends = this.getIdFriendsUser(id);
         const temp_json = [];
         friends.push(parseInt(id))

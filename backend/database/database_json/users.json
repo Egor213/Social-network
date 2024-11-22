@@ -9,7 +9,6 @@
         4,
         3,
         9,
-        13,
         12,
         15,
         8,
@@ -18,7 +17,7 @@
       "role": "Администратор",
       "status": "Активный",
       "email": "zamok7707@gmail.com",
-      "img": "/st2/img/img10.png",
+      "img": "/st2/img/img14.png",
       "password": "root"
     },
     {
@@ -211,6 +210,19 @@
       "role": "Пользователь",
       "status": "Активный",
       "img": "/st2/img/img13.jfif"
+    },
+    {
+      "name": "test_len",
+      "email": "test_len@test",
+      "password": "root",
+      "date": "01.05.1940",
+      "id": 16,
+      "friends": [
+        1
+      ],
+      "role": "Пользователь",
+      "status": "Активный",
+      "img": null
     }
   ]
 }
