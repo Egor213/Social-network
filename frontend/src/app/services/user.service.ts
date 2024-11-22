@@ -13,6 +13,12 @@ export class UserService {
     this.userSubject.next(user);  
   }
 
+  loadUserPhoto(imgPath: string) {
+    const currentUser = this.userSubject.value;
+    currentUser.img = imgPath;  
+    this.updateUser(currentUser);  
+  }
+
   clearUserPhoto() {
     const currentUser = this.userSubject.value;
     currentUser.img = '';  

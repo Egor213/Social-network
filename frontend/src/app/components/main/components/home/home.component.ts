@@ -29,23 +29,46 @@ export class HomeComponent {
     });
   }
 
-  loadAvatarImg(event: Event) {
+  loadAvatarImg(event?: Event) {
+    if (event) event.preventDefault();
     if (this.file) {
       const formData = new FormData();
       formData.append('file', this.file);
-      this.reqServ.uploadUserImg(formData).subscribe()
+      if (this.user.img)
+        this.deleteImgUser()
+      this.reqServ.uploadUserImg(this.user.email, formData).subscribe({
+        next: (result) => {
+          if ('path_img' in result) {
+            this.user.img = result.path_img
+            this.userServ.loadUserPhoto(result.path_img);
+            this.changeLoadImg()
+          }
+          else {
+            console.log('ошибка установки фотографии!', result)
+          }
+        },
+        error: err => console.log('ошибка установки фотографии!', err)
+      })
     }
   }
 
-  deleteImgUser(email: string) {
-    if(confirm("Удалить фотографию?")) {
-        this.reqServ.deleteUserImg(email).subscribe({
+  deleteImgUser(): boolean {
+    if (!this.user.img) {
+      alert('У вас нет фотографии!')
+      return false;
+    }
+    if(confirm("Удалить старую фотографию?")) {
+        this.reqServ.deleteUserImg(this.user.email).subscribe({
         next: res => {
           this.user.img = ''
           this.userServ.clearUserPhoto();
+        },
+        error: err => {
+          console.log('Не удалось удалить фотографию:', err)
         }
       })
     }
+    return true
     }
 
     changeLoadImg() {

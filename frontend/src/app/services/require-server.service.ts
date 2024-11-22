@@ -68,7 +68,8 @@ export class RequireServerService {
     return this.http.get<User[]>(this.apiUrl + "/api/user/friends", { params });
   }
 
-  uploadUserImg(formData: any) {
-    return this.http.post(this.apiUrl + "/api/user/upload_img", formData)
+  uploadUserImg(email: string, formData: FormData) {
+    const params = new HttpParams().set('email', email);
+    return this.http.post<any>(this.apiUrl + '/api/user/upload_img', formData, { params });
   }
 }

@@ -25,7 +25,7 @@
               </div>
               <div class="list-group-item d-flex justify-content-between align-items-center flex-wrap mt-2">
                 <button class="btn btn-success" (click)="changeLoadImg()">Добавить фотографию</button>
-                <button class="btn btn-warning" (click)="deleteImgUser(user.email)">Удалить фотографию</button>
+                <button class="btn btn-warning" (click)="deleteImgUser()">Удалить фотографию</button>
               </div>
               <!-- Форма загрузки -->
               <form  enctype="multipart/form-data" *ngIf="isLoad" class="upload-form">
