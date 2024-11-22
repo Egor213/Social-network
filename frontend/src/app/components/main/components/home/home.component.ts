@@ -16,6 +16,7 @@ export class HomeComponent {
   file: File | null = null; 
   fileName: string = ''
   previewUrl: string | ArrayBuffer | null = null;
+  attachedImg: string | null = null
 
   defaultImgPath: string = DEFAULT_IMG_PATH
 
@@ -28,6 +29,10 @@ export class HomeComponent {
         this.user = user;
       }
     });
+  }
+
+  attachImg() {
+    this.attachedImg = prompt("Введите ссылку на изображение")
   }
 
   loadAvatarImg(event?: Event) {
