@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { RequireServerService } from '../../../../services/require-server.service';
 import { AuthService } from '../../../../services/auth.service';
 import { DEFAULT_IMG_PATH } from '../constants';
-import { User } from '../../../../interfaces';
+import { SendPost, User } from '../../../../interfaces';
 import { UserService } from '../../../../services/user.service';
+import { SocketService } from '../../../../services/socket.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -16,11 +17,17 @@ export class HomeComponent {
   file: File | null = null; 
   fileName: string = ''
   previewUrl: string | ArrayBuffer | null = null;
-  attachedImg: string | null = null
+  attachedImg: string = ''
+  postContent: string = '';
 
   defaultImgPath: string = DEFAULT_IMG_PATH
 
-  constructor(private reqServ: RequireServerService, private authService: AuthService, private userServ: UserService) {}
+  constructor(
+    private reqServ: RequireServerService, 
+    private authService: AuthService, 
+    private userServ: UserService,
+    private socketServ: SocketService
+  ) {}
 
   ngOnInit(): void {
     const dataUser = this.authService.getTokenData()
@@ -31,8 +38,30 @@ export class HomeComponent {
     });
   }
 
+  publishPost() {
+    if (!this.postContent && !this.attachedImg) {
+      alert("Напиши что-нибудь или прикрепите фотографию!")
+      return;
+    }
+    this.postNews(this.postContent, this.attachedImg)
+    this.postContent = ''
+    this.attachedImg = ''
+    alert("Пост опубликован!")
+  }
+
+  postNews(post: string, img?: string): void {
+    const newsData: SendPost  = { id: this.user.id, post: post, email: this.user.email};
+    if (img)
+      newsData.photo = img
+    this.socketServ.sendNews(newsData);
+  }
+
   attachImg() {
-    this.attachedImg = prompt("Введите ссылку на изображение")
+    this.attachedImg = prompt("Введите ссылку на изображение") || ''
+  }
+
+  clearAtteched() {
+    this.attachedImg = ''
   }
 
   loadAvatarImg(event?: Event) {

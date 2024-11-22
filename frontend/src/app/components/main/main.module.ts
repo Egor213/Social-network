@@ -9,6 +9,7 @@ import { MainDashboardComponent } from './components/main-dashboard/main-dashboa
 import { FriendsComponent } from './components/friends/friends.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { AddNewFriendsComponent } from './components/add-new-friends/add-new-friends.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { AddNewFriendsComponent } from './components/add-new-friends/add-new-fri
   ],
   imports: [
     CommonModule,
-    MainRoutingModule
+    MainRoutingModule,
+    FormsModule
   ]
 })
 export class MainModule { }

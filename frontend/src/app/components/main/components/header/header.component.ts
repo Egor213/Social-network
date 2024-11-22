@@ -3,7 +3,7 @@ import { Router } from 'express';
 import { AuthService } from '../../../../services/auth.service';
 import { RequireServerService } from '../../../../services/require-server.service';
 import { map } from 'rxjs';
-import { User } from '../../../../interfaces';
+import { SendPost, User } from '../../../../interfaces';
 import { DEFAULT_IMG_PATH } from '../constants';
 import { UserService } from '../../../../services/user.service';
 @Component({
@@ -15,7 +15,11 @@ export class HeaderComponent implements OnInit{
 
     defaultImgPath: string = DEFAULT_IMG_PATH
 
-    constructor(private authService: AuthService, private reqServ: RequireServerService, private userServ: UserService) {}
+    constructor(
+      private authService: AuthService, 
+      private reqServ: RequireServerService, 
+      private userServ: UserService
+    ) {}
 
     
     isAdmin: boolean = false;
@@ -35,6 +39,7 @@ export class HeaderComponent implements OnInit{
         }
       });
     }
+
 
 
 

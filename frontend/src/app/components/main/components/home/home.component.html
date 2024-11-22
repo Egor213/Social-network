@@ -112,20 +112,36 @@
                     <div class="panel shadow-sm">
                       <div class="panel-body">
                         <form>
-                          <textarea placeholder="Что у вас нового?" rows="4" class="form-control input-lg p-text-area" style="resize: none;"></textarea>
+                          <textarea 
+                            placeholder="Что у вас нового?" 
+                            rows="4" 
+                            class="form-control input-lg p-text-area" 
+                            style="resize: none;"
+                            [(ngModel)]="postContent"
+                            name="postContent">
+                          </textarea>
                         </form>
                       </div>
                       <footer class="panel-footer d-flex justify-content-between align-items-center p-3 bg-light shadow-sm">
                         <button (click)="attachImg()" class="btn btn-success attach-img d-flex align-items-center">
                           <i class="fa fa-camera me-2"></i> Прикрепить изображение
                         </button>
-                        <button class="btn btn-primary">Опубликовать</button>
+                        <button class="btn btn-primary" (click)="publishPost()">Опубликовать</button>
                       </footer>
+                      <div *ngIf="attachedImg" class="d-flex justify-content-between">
+                        <h5>Фотография приклеплена</h5>
+                        <button type="button" class="btn btn-danger btn-sm clear-btn" (click)="clearAtteched()">
+                          <i class="fas fa-times"></i> 
+                        </button>
+                      </div>
+                      <div *ngIf="attachedImg" class="d-flex justify-content-center mt-3">
+                        <img [src]="attachedImg" alt="Предварительный просмотр" class="img-thumbnail" width="300"/>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-
+              
             </div>
           </div>
 

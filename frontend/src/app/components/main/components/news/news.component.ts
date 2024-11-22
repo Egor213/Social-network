@@ -19,13 +19,8 @@ export class NewsComponent implements OnInit {
     const tokenData = this.authServ.getTokenData()
     this.socketService.getNews(tokenData[0]).subscribe((news: PostUser[]) => {
       this.news = news;
-      console.log(this.news)
+      console.log(news)
     }); 
 
-  }
-
-  postNews(newsContent: string): void {
-    const newsData = { content: newsContent};
-    this.socketService.sendNews(newsData);
   }
 }

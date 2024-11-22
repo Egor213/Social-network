@@ -25,3 +25,11 @@ export interface PostUser {
     email: string,
     photo?: string
 }
+
+
+export interface SendPost {
+    id: number,
+    post: string,
+    email: string,
+    photo?: string
+}
