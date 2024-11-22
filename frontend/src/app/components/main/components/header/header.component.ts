@@ -3,7 +3,9 @@ import { Router } from 'express';
 import { AuthService } from '../../../../services/auth.service';
 import { RequireServerService } from '../../../../services/require-server.service';
 import { map } from 'rxjs';
-import { User } from '../../../../interfaces';
+import { SendPost, User } from '../../../../interfaces';
+import { DEFAULT_IMG_PATH } from '../constants';
+import { UserService } from '../../../../services/user.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -11,39 +13,56 @@ import { User } from '../../../../interfaces';
 })
 export class HeaderComponent implements OnInit{
 
-    constructor(private authService: AuthService, private reqServ: RequireServerService) {}
+    defaultImgPath: string = DEFAULT_IMG_PATH
 
+    constructor(
+      private authService: AuthService, 
+      private reqServ: RequireServerService, 
+      private userServ: UserService
+    ) {}
+
+    
     isAdmin: boolean = false;
     username!: string;
-    imgUrl!: string;
+    user!: User;
 
     ngOnInit(): void {
+      this.userServ.user$.subscribe(user => {
+        this.user = user;
+      });
       const dataUser = this.authService.getTokenData()
-      this.reqServ.getUserData(dataUser[0], dataUser[1]).pipe(
-        map(obj => {
-          return obj; 
-        })
-      ).subscribe({
+      this.reqServ.getUserData(dataUser[0], dataUser[1]).subscribe({
         next: (user) => {
-          this.username = user.name;
-          this.imgUrl = user.img;
-          if (user.role === 'Администратор') {
-            this.isAdmin = true
-          }
+          this.username = this.truncateString(user.name, 15)
+          this.setAdmin(user.role)
+          this.user = user
         }
       });
-
-
     }
+
+
+
 
     OnAdminSite() {
       window.location.href = 'http://localhost:3000/'
     }
 
     logout() {
-      this.authService.logout();
+      this.authService.logout();  
     }
+
+
+    truncateString(str: string, length: number): string {
+      if (str.length > length) {
+        return str.substring(0, length) + '...';
+      }
+      return str;
+    }
+
+    setAdmin(role: string) {
+      if (role === 'Администратор') {
+        this.isAdmin = true
+      }
+    }
+
 }
-
-
-// http://localhost:3000/st2/img/img3.jfif

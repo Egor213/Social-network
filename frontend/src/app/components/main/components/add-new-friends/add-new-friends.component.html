@@ -1,0 +1,43 @@
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="content">
+    <div class="container">
+        <h3 class="mt-3">
+            Найдите новых друзей!
+        </h3>
+        <!-- end row -->
+        <div class="row">
+            <div *ngFor="let user of showUsersList" class="col-lg-3 col-md-4 col-sm-6">
+                <div class="text-center card-box">
+                    <div class="member-card pt-2 pb-2">
+                        <div class="thumb-lg member-thumb mx-auto">
+                            <img [src]="user.img ? 'http://localhost:3000' + user.img : defaultImgPath" class="rounded-circle img-thumbnail" alt="profile-image" width="150px" height="150px">
+                        </div>
+                        <div class="">
+                            <h4>{{user.name}}</h4>
+                        </div>
+                        <div class="mt-3">
+                            <div class="row">
+                                <h4>{{user.date}}</h4>
+                                <p class="mb-0 text-muted">Date birthday</p>
+                            </div>
+                        </div>
+                        <div class="card-friend-btn">
+                            <button type="button" class="btn btn-success m-3 btn-rounded" routerLink="/main/user/{{user.id}}">Подробнее</button>
+                            <button type="button" class="btn btn-warning m-3 btn-rounded" (click)="addFriend(user.id)">Добавить</button>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row -->
+         
+    </div>
+    
+
+
+    
+    <!-- container -->
+</div>
+
+

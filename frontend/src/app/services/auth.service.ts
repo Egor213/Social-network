@@ -5,7 +5,6 @@ import { catchError, Observable, of, map } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { RequireServerService } from './require-server.service';
 import { registerUser } from '../interfaces';
-import { error } from 'console';
 
 interface inputUser {
   email: string;
@@ -17,7 +16,6 @@ interface inputUser {
 })
 export class AuthService {
 
-  private apiUrl = 'http://localhost:3000/api/admin';
   userData: any;
 
   constructor(
