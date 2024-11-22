@@ -21,6 +21,5 @@ export class NewsComponent implements OnInit {
       this.news = news;
       console.log(news)
     }); 
-
   }
 }
