@@ -16,7 +16,7 @@
           <div *ngFor="let postUser of news">
 
             <div class="d-flex p-4 border-bottom" *ngIf="postUser">
-                <img [src]="postUser.img ? 'http://localhost:3000' + postUser.img : defaultImgPath" *ngIf="postUser.img" class="rounded-circle"
+                <img [src]="postUser.img ? 'https://localhost:3000' + postUser.img : defaultImgPath" *ngIf="postUser.img" class="rounded-circle"
                   height="50" alt="Avatar"/>
                 <div class="d-flex w-100 ps-3">
                   <div class="w-100">

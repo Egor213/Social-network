@@ -10,8 +10,8 @@ const server = express();
 
 const path = require('path');
 const fs = require("fs");
-// const {createServer} = require("https");
-const {createServer} = require("http");
+const {createServer} = require("https");
+// const {createServer} = require("http");
 
 const cors = require('cors');
 const corsOptions = { 
@@ -73,7 +73,7 @@ const httpServer = createServer(server)
 
 const socket_oi = require('socket.io')
 
-const io = socket_oi(httpServer, {
+const io = socket_oi(SERVER, {
     cors: {
       origin: "http://localhost:4200",
       methods: ["GET", "POST"],
@@ -107,6 +107,6 @@ io.on("connection", (socket) => {
     });
 })
 
-httpServer.listen(3000, () => {
+SERVER.listen(3000, () => {
     console.log("Сервер запущен на 3000 порту");
 })

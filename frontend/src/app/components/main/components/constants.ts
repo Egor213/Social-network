@@ -1,1 +1,1 @@
-export const DEFAULT_IMG_PATH: string = 'http://localhost:3000/st2/img/default.jpg'
+export const DEFAULT_IMG_PATH: string = 'https://localhost:3000/st2/img/default.jpg'

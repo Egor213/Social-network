@@ -7,7 +7,7 @@ import { PostUser } from '../interfaces';
 })
 export class SocketService {
   private socket: any;
-  private serverUrl = 'http://localhost:3000';
+  private serverUrl = 'https://localhost:3000';
   constructor() {
     this.socket = io(this.serverUrl)
   }

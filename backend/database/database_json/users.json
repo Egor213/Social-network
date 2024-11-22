@@ -11,7 +11,6 @@
         9,
         12,
         15,
-        8,
         14
       ],
       "role": "Администратор",
@@ -223,6 +222,19 @@
       "role": "Пользователь",
       "status": "Активный",
       "img": null
+    },
+    {
+      "name": "regus",
+      "email": "regus@gmail.com",
+      "password": "root",
+      "date": "04.02.2004",
+      "id": 17,
+      "friends": [
+        8
+      ],
+      "role": "Пользователь",
+      "status": "Активный",
+      "img": "/st2/img/img15.jfif"
     }
   ]
 }

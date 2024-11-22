@@ -8,7 +8,7 @@ import { map } from 'rxjs';
   providedIn: 'root'
 })
 export class RequireServerService {
-  private apiUrl = 'http://localhost:3000';
+  private apiUrl = 'https://localhost:3000';
   constructor(private http: HttpClient) { }
 
   getUsers(): Observable<User[]> {
