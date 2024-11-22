@@ -20,7 +20,7 @@
       "role": "Администратор",
       "status": "Активный",
       "email": "zamok7707@gmail.com",
-      "img": "/st2/img/img10.jfif",
+      "img": "/st2/img/img10.png",
       "password": "root"
     },
     {
@@ -156,10 +156,13 @@
       "password": "root",
       "date": "10.10.2000",
       "id": 11,
-      "friends": [],
+      "friends": [
+        15,
+        3
+      ],
       "role": "Пользователь",
       "status": "Активный",
-      "img": null
+      "img": "/st2/img/img12.jfif"
     },
     {
       "name": "Test3",
@@ -200,10 +203,15 @@
       "password": "root",
       "date": "10.10.2000",
       "id": 15,
-      "friends": [],
+      "friends": [
+        10,
+        11,
+        2,
+        4
+      ],
       "role": "Пользователь",
       "status": "Активный",
-      "img": null
+      "img": "/st2/img/img13.jfif"
     }
   ]
 }

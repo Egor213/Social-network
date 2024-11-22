@@ -7,9 +7,11 @@ else
 
 const express = require("express");
 const server = express();
+
 const path = require('path');
 const fs = require("fs");
-const {createServer} = require("https");
+// const {createServer} = require("https");
+const {createServer} = require("http");
 
 const cors = require('cors');
 const corsOptions = { 
@@ -65,8 +67,37 @@ server.get("*", (req, res) => {
 });
 
 
-const SERVER = createServer(https_options, server);
 
-server.listen(3000, () => {
+const SERVER = createServer(https_options, server);
+const httpServer = createServer(server)
+
+const socket_oi = require('socket.io')
+
+const io = socket_oi(httpServer, {
+    cors: {
+      origin: "http://localhost:4200",
+      methods: ["GET", "POST"],
+      allowedHeaders: ["Authorization", "Content-Type"],
+      credentials: true
+    }
+  })
+
+const db_users = require('./database/database_controllers/database_users_controller')
+io.on("connection", (socket) => {
+    console.log('A user connected');
+    
+    socket.on('get_news', (data) => {
+       const user_emai = data.userEmail
+       console.log(`Fetching news for user ${user_emai}`);
+       const news = db_users.getNewsFriends(null, user_emai)
+       socket.emit('news', news);
+    });
+
+    socket.on('disconnect', () => {
+        console.log('User disconnected');
+    });
+})
+
+httpServer.listen(3000, () => {
     console.log("Сервер запущен на 3000 порту");
 })

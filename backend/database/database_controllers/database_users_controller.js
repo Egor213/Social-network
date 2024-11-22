@@ -83,7 +83,9 @@ class DatabaseUsersController {
         return false;
     }
 
-    getNewsFriends(id) {
+    getNewsFriends(id, email = '') {
+        if (email)
+            id = this.getUserByEmail(email).id
         const friends = this.getIdFriendsUser(id);
         const temp_json = [];
         for (let index in friends) {
