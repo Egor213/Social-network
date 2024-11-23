@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "nodemon app.js"
   },
   "author": "",
@@ -26,6 +26,7 @@
     "gulp-pug": "^5.0.0",
     "gulp-uglify": "^3.0.2",
     "gulp4": "^4.0.2",
+    "jest": "^29.7.0",
     "multer": "^1.4.5-lts.1",
     "pug": "^3.0.2",
     "pug-loader": "^2.4.0",

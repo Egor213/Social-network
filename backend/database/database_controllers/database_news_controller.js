@@ -50,13 +50,6 @@ class DatabaseNewsController {
         return this.getArrData();
     }
 
-    getNewsById(id) {
-        const data = this.getArrData();
-        for (let index in data) {
-            if (id == data[index].id)
-                return data[index];
-        }
-        return false;
-    }
+
 }
 module.exports = new DatabaseNewsController(path.join(__dirname, '..', 'database_json', 'news.json'));

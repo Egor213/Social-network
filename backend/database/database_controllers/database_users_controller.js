@@ -24,6 +24,7 @@ class DatabaseUsersController {
             if (data[index].email == email) 
                 return data[index];
         }
+        return false
     }
 
     getAllUsers() {
@@ -185,7 +186,7 @@ class DatabaseUsersController {
     }
 
     hasImg(path_img) {
-        return fs.existsSync(path_img); // Возвращает true, если файл существует, иначе false
+        return fs.existsSync(path_img); 
       }
 
     deleteImgUser(email) {

@@ -11,7 +11,8 @@
         9,
         12,
         15,
-        14
+        14,
+        18
       ],
       "role": "Администратор",
       "status": "Активный",
@@ -235,6 +236,19 @@
       "role": "Пользователь",
       "status": "Активный",
       "img": "/st2/img/img15.jfif"
+    },
+    {
+      "name": "Dima Chepasov",
+      "email": "chepdv9@gmail.com",
+      "password": "root",
+      "date": "30.07.2003",
+      "id": 18,
+      "friends": [
+        1
+      ],
+      "role": "Администратор",
+      "status": "Активный",
+      "img": "/st2/img/img16.jpg"
     }
   ]
 }
